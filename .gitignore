@@ -19,6 +19,7 @@ npm-debug.log*
 .versions/
 coverage/
 dist/
+environnement/
 node_modules/
 tmp/
 temp/
@@ -29,6 +30,7 @@ plugins/android.json
 plugins/ios.json
 www/
 $RECYCLE.BIN/
+google-services.json
 
 .DS_Store
 Thumbs.db

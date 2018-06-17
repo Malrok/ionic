@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { FirestoreProvider } from '../../providers/firestore/firestore';
+import { Observable } from 'rxjs';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +10,13 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  users: Observable<User[]>;
 
+  constructor(
+    public navCtrl: NavController,
+    private firestore: FirestoreProvider
+  ) {
+    this.users = this.firestore.getAllUsers();
   }
 
 }
