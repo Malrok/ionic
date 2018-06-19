@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let user of users | async">
+    <ion-item *ngFor="let user of users | async" (click)="goToDetail(user)">
       <ion-avatar item-start>
         <img [src]="user.picture">
       </ion-avatar>

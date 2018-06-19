@@ -7,15 +7,13 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 
 import { CONFIG } from '../../environnement/config';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -25,8 +23,7 @@ import { FirestoreProvider } from '../providers/firestore/firestore';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   providers: [
     StatusBar,
