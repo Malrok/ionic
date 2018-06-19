@@ -1,0 +1,13 @@
+{
+    "PAGES": {
+        "DETAILS": {
+            "FIRSTNAME": "Prénom",
+            "LASTNAME": "Nom",
+            "DESCRIPTION": "Description",
+            "EMAIL": "Email"
+        }
+    },
+    "BUTTONS": {
+        "SAVE": "Sauvegarder"
+    }
+}

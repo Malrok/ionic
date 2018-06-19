@@ -1,9 +1,3 @@
-<!--
-  Generated template for the DetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,6 +7,34 @@
 </ion-header>
 
 
-<ion-content padding>
-  {{ user | json }}
+<ion-content padding *ngIf="formGroup">
+  <form [formGroup]="formGroup" (ngSubmit)="submit()">
+
+    <ion-item no-lines>
+      <ion-label floating>{{ 'PAGES.DETAILS.FIRSTNAME' | translate }}</ion-label>
+      <ion-input type="text" formControlName="first_name"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label floating>{{ 'PAGES.DETAILS.LASTNAME' | translate }}</ion-label>
+      <ion-input type="text" formControlName="last_name"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label floating>{{ 'PAGES.DETAILS.DESCRIPTION' | translate }}</ion-label>
+      <ion-input type="text" formControlName="description"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label floating>{{ 'PAGES.DETAILS.EMAIL' | translate }}</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+  </form>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar *ngIf="formGroup" style="text-align: center;">
+    <button type="submit" form="formGroup" full [disabled]="!formGroup.valid" block>{{ 'BUTTONS.SAVE' | translate }}</button>
+  </ion-toolbar>
+</ion-footer>
