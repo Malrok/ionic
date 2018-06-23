@@ -1,10 +1,12 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -44,7 +46,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirestoreProvider,
-    HttpClient
+    HttpClient,
+    ImagePicker,
+    VirtualScrollModule
   ]
 })
 export class AppModule { }

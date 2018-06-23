@@ -1,14 +1,20 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>details</ion-title>
+    <ion-title>
+      details
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding *ngIf="formGroup">
-  <form [formGroup]="formGroup" (ngSubmit)="submit()">
+<ion-content padding>
+  <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="formGroup">
+
+    <ion-item no-lines>
+      <ion-avatar item-start>
+        <img tappable (click)="pickImage()" [src]="formGroup.controls.picture.value">
+      </ion-avatar>
+    </ion-item>
 
     <ion-item no-lines>
       <ion-label floating>{{ 'PAGES.DETAILS.FIRSTNAME' | translate }}</ion-label>
@@ -35,6 +41,6 @@
 
 <ion-footer>
   <ion-toolbar *ngIf="formGroup" style="text-align: center;">
-    <button type="submit" form="formGroup" full [disabled]="!formGroup.valid" block>{{ 'BUTTONS.SAVE' | translate }}</button>
+    <button ion-button type="submit" form="formGroup" full [disabled]="!formGroup.valid" block>{{ 'BUTTONS.SAVE' | translate }}</button>
   </ion-toolbar>
 </ion-footer>

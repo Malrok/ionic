@@ -1,8 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { IonicPage, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
+
+const OPTIONS = {
+  maximumImagesCount: 1
+};
 
 @IonicPage({
   name: 'page-details'
@@ -19,11 +24,14 @@ export class DetailsPage implements OnInit, OnDestroy {
   constructor(
     public navParams: NavParams,
     private firestore: FirestoreProvider,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private picker: ImagePicker
   ) { }
 
   ngOnInit() {
-    this.userSubscription = this.firestore.getUserById(this.navParams.get('id'))
+    const id = this.navParams.get('id') || '02aykIRoL0eeNJLx8aTk';
+    console.log(id);
+    this.userSubscription = this.firestore.getUserById(id)
       .subscribe((user) => {
         this.formGroup = this.fb.group({
           first_name: [user.first_name, Validators.required],
@@ -40,8 +48,23 @@ export class DetailsPage implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
+  public pickImage(): void {
+    this.picker.getPictures(OPTIONS).then((results) => {
+      if (typeof results === 'string' && results === 'OK') {
+        // permission has been requested
+        return Promise.resolve();
+      }
+      if (results.length > 1) {
+        console.error('only one picture should be picked');
+      } else {
+        this.formGroup.controls.picture.patchValue(results[0]);
+      }
+    }, (err) => console.error(err));
+  }
+
   public submit() {
     console.log('submitted');
+    // TODO : upload picture if it was changed
   }
 
 }

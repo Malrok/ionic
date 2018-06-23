@@ -7,12 +7,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <virtual-scroll [items]="users | async">
     <ion-item *ngFor="let user of users | async" (click)="goToDetail(user)">
       <ion-avatar item-start>
         <img [src]="user.picture">
       </ion-avatar>
       <h2>{{ user.first_name }} {{ user.last_name }}</h2>
     </ion-item>
-  </ion-list>
+  </virtual-scroll>
 </ion-content>
