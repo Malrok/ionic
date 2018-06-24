@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <form [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="formGroup">
+  <form id="formGroup" [formGroup]="formGroup" (ngSubmit)="submit()" *ngIf="formGroup">
 
     <ion-item no-lines>
       <ion-avatar item-start>
@@ -41,6 +41,6 @@
 
 <ion-footer>
   <ion-toolbar *ngIf="formGroup" style="text-align: center;">
-    <button ion-button type="submit" form="formGroup" full [disabled]="!formGroup.valid" block>{{ 'BUTTONS.SAVE' | translate }}</button>
+    <button ion-button type="submit" form="formGroup" full [disabled]="!formGroup.valid && saving" block>{{ 'BUTTONS.SAVE' | translate }}</button>
   </ion-toolbar>
 </ion-footer>

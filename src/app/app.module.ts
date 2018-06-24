@@ -9,10 +9,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { CONFIG } from '../../environnement/config';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 import { MyApp } from './app.component';
+import { StorageProvider } from '../providers/storage/storage';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -28,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(CONFIG.database),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -48,7 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FirestoreProvider,
     HttpClient,
     ImagePicker,
-    VirtualScrollModule
+    VirtualScrollModule,
+    StorageProvider
   ]
 })
 export class AppModule { }

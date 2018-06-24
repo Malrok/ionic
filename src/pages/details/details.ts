@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
-import { IonicPage, NavParams } from 'ionic-angular';
-import { Subscription } from 'rxjs';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import 'rxjs/add/operator/first';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
+import { StorageProvider } from '../../providers/storage/storage';
 
 const OPTIONS = {
   maximumImagesCount: 1
@@ -16,24 +17,30 @@ const OPTIONS = {
   selector: 'page-details',
   templateUrl: 'details.html',
 })
-export class DetailsPage implements OnInit, OnDestroy {
+export class DetailsPage implements OnInit {
 
   public formGroup: FormGroup;
-  private userSubscription: Subscription;
+
+  public saving: boolean = false;
+
+  private pickedImage: boolean = false;
 
   constructor(
     public navParams: NavParams,
+    private navCtrl: NavController,
     private firestore: FirestoreProvider,
     private fb: FormBuilder,
-    private picker: ImagePicker
+    private picker: ImagePicker,
+    private storage: StorageProvider
   ) { }
 
   ngOnInit() {
     const id = this.navParams.get('id') || '02aykIRoL0eeNJLx8aTk';
-    console.log(id);
-    this.userSubscription = this.firestore.getUserById(id)
+    this.firestore.getUserById(id)
+      .first()
       .subscribe((user) => {
         this.formGroup = this.fb.group({
+          id: [user.id],
           first_name: [user.first_name, Validators.required],
           last_name: [user.last_name, Validators.required],
           description: [user.description],
@@ -42,10 +49,6 @@ export class DetailsPage implements OnInit, OnDestroy {
           address: [user.address]
         });
       });
-  }
-
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
   }
 
   public pickImage(): void {
@@ -57,14 +60,30 @@ export class DetailsPage implements OnInit, OnDestroy {
       if (results.length > 1) {
         console.error('only one picture should be picked');
       } else {
+        this.pickedImage = true;
         this.formGroup.controls.picture.patchValue(results[0]);
       }
-    }, (err) => console.error(err));
+    }, console.error);
   }
 
   public submit() {
-    console.log('submitted');
-    // TODO : upload picture if it was changed
+    this.saving = true;
+    if (this.pickedImage) {
+      this.storage.uploadFile(this.formGroup.controls.picture.value)
+        .then((url) => {
+          this.formGroup.controls.picture.patchValue(url);
+          this.save()
+        }).catch(console.error);
+    } else {
+      this.save();
+    }
+  }
+
+  private save() {
+    this.firestore.saveUser(this.formGroup)
+      .then(() => {
+        this.navCtrl.pop();
+      }).catch(console.error);
   }
 
 }
