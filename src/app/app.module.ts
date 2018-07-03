@@ -2,6 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -13,8 +14,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { CONFIG } from '../../environnement/config';
 import { FirestoreProvider } from '../providers/firestore/firestore';
-import { MyApp } from './app.component';
 import { StorageProvider } from '../providers/storage/storage';
+import { MyApp } from './app.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -52,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClient,
     ImagePicker,
     VirtualScrollModule,
-    StorageProvider
+    StorageProvider,
+    NativeGeocoder
   ]
 })
 export class AppModule { }

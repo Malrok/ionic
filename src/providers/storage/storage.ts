@@ -14,22 +14,12 @@ export class StorageProvider {
       const fileRef: AngularFireStorageReference = this.afStorage.ref(`avatars/${filename}`);
       this.encodeImageUri(filePath, function (image64) {
         fileRef.putString(image64, 'data_url')
-          .then(snapshot => {
+          .then(() => {
             fileRef.getDownloadURL().first().subscribe((downloadUrl: string) => {
               resolve(downloadUrl);
             });
           })
           .catch(reject);
-        //   const task: AngularFireUploadTask = this.afStorage.upload(`avatars/${filename}`, filename);
-        //   task.snapshotChanges().pipe(
-        //     finalize(() => {
-        //       fileRef.getDownloadURL().first().subscribe((downloadUrl: string) => {
-        //         resolve(downloadUrl);
-        //       });
-        //     })
-        //   )
-        //     .first()
-        //     .subscribe(console.log, reject);
       });
     });
   }

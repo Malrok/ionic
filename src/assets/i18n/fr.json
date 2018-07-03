@@ -9,5 +9,8 @@
     },
     "BUTTONS": {
         "SAVE": "Sauvegarder"
+    },
+    "COMPONENTS": {
+        "ADDRESS": "Address"
     }
 }
