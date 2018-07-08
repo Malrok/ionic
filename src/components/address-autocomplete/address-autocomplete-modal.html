@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button clear color="dark" icon-only (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ label }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item>
+    <ion-searchbar #search type="text" id="search" [(ngModel)]="displayedAddressValue" (ionInput)="inputOnSearchbar(true)" (ionFocus)="inputOnSearchbar(false)"
+      (ionBlur)="onBlur()" [placeholder]="label"></ion-searchbar>
+  </ion-item>
+  <ion-item *ngIf="results.length > 0 || (allowCustom && displayedAddressValue)">
+    <ion-list>
+      <ion-item text-wrap *ngFor="let item of results" tappable (click)="selectSearchResult(item)">
+        {{ item.description || item.formatted_address }}
+      </ion-item>
+      <ion-item (click)="selectCustomAddress()" *ngIf="allowCustom && customEnabled">
+        <p style="color: #606060; font-style: oblique">{{ displayedAddressValue }}</p>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+  <!-- some html element is needed by maps API to "display" attribution when no maps is generated -->
+  <p id="attribution"></p>
+</ion-content>

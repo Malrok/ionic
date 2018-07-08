@@ -13,6 +13,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { CONFIG } from '../../environnement/config';
+import { AddressAutocompleteModalComponent } from '../components/address-autocomplete/address-autocomplete-modal';
+import { ComponentsModule } from '../components/components.module';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 import { StorageProvider } from '../providers/storage/storage';
 import { MyApp } from './app.component';
@@ -33,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFirestoreModule,
     AngularFireStorageModule,
     HttpClientModule,
+    ComponentsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    AddressAutocompleteModalComponent
   ],
   providers: [
     StatusBar,
