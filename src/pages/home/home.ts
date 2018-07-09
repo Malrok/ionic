@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
+import { PopoverPage } from '../popover/popover';
 
 @IonicPage({
   name: 'page-home'
@@ -17,13 +18,15 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController,
-    private firestore: FirestoreProvider
+    private firestore: FirestoreProvider,
+    private popoverCtrl: PopoverController
   ) {
     this.users = this.firestore.getAllUsers();
   }
 
-  add() {
-
+  presentPopover(ev) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({ ev });
   }
 
   goToDetail(id: string) {

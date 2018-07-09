@@ -15,6 +15,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { CONFIG } from '../../environnement/config';
 import { AddressAutocompleteModalComponent } from '../components/address-autocomplete/address-autocomplete-modal';
 import { ComponentsModule } from '../components/components.module';
+import { PopoverPage } from '../pages/popover/popover';
+import { PopoverPageModule } from '../pages/popover/popover.module';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 import { StorageProvider } from '../providers/storage/storage';
 import { MyApp } from './app.component';
@@ -36,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireStorageModule,
     HttpClientModule,
     ComponentsModule,
+    PopoverPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -47,7 +50,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AddressAutocompleteModalComponent
+    AddressAutocompleteModalComponent,
+    PopoverPage
   ],
   providers: [
     StatusBar,
