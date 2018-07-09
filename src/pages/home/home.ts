@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
-import { FirestoreProvider } from '../../providers/firestore/firestore';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
+import { FirestoreProvider } from '../../providers/firestore/firestore';
 
 @IonicPage({
   name: 'page-home'
@@ -22,8 +22,12 @@ export class HomePage {
     this.users = this.firestore.getAllUsers();
   }
 
-  goToDetail(user: User) {
-    this.navCtrl.push('page-details', { id: user.id });
+  add() {
+
+  }
+
+  goToDetail(id: string) {
+    this.navCtrl.push('page-details', { id });
   }
 
 }

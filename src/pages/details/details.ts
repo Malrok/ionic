@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import 'rxjs/add/operator/first';
+import { UserFactory } from '../../models/factories/user.factory';
+import { User } from '../../models/user';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
 import { StorageProvider } from '../../providers/storage/storage';
 
@@ -35,20 +37,26 @@ export class DetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    const id = this.navParams.get('id') || '02aykIRoL0eeNJLx8aTk';
-    this.firestore.getUserById(id)
-      .first()
-      .subscribe((user) => {
-        this.formGroup = this.fb.group({
-          id: [user.id],
-          first_name: [user.first_name, Validators.required],
-          last_name: [user.last_name, Validators.required],
-          description: [user.description],
-          email: [user.email, [Validators.required, Validators.email]],
-          picture: [user.picture],
-          address: [user.address]
-        });
-      });
+    const id = this.navParams.get('id');
+    if (id === 'new') {
+      this.createFormGroup(UserFactory.newInstance());
+    } else {
+      this.firestore.getUserById(id)
+        .first()
+        .subscribe((user: User) => this.createFormGroup(user));
+    }
+  }
+
+  private createFormGroup(user: User) {
+    this.formGroup = this.fb.group({
+      id: [user.id],
+      first_name: [user.first_name, Validators.required],
+      last_name: [user.last_name, Validators.required],
+      description: [user.description],
+      email: [user.email, [Validators.required, Validators.email]],
+      picture: [user.picture],
+      address: [user.address]
+    });
   }
 
   public pickImage(): void {
@@ -72,7 +80,7 @@ export class DetailsPage implements OnInit {
       this.storage.uploadFile(this.formGroup.controls.picture.value)
         .then((url) => {
           this.formGroup.controls.picture.patchValue(url);
-          this.save()
+          this.save();
         }).catch(console.error);
     } else {
       this.save();

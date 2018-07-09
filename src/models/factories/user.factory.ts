@@ -30,4 +30,16 @@ export class UserFactory {
         return user;
     }
 
+    public static newInstance(): User {
+        return {
+            id: '',
+            first_name: '',
+            last_name: '',
+            description: '',
+            email: '',
+            picture: '',
+            address: null
+        };
+    }
+
 }

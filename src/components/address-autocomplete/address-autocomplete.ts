@@ -45,8 +45,6 @@ export class AddressAutocompleteComponent implements ControlValueAccessor {
   @Input()
   fullAddressDetails: boolean;
 
-  private _address
-
   /**
    * Address value
    */
@@ -114,12 +112,28 @@ export class AddressAutocompleteComponent implements ControlValueAccessor {
    */
   writeValue(geopoint: firebase.firestore.GeoPoint): void {
     console.log('writeValue: ', geopoint);
-    this.nativeGeocoder.reverseGeocode(geopoint.latitude, geopoint.longitude, OPTIONS)
-      .then((result: NativeGeocoderReverseResult[]) => {
-        console.log(JSON.stringify(result[0]));
-        this._addressValue.formattedAddress = result[0].subThoroughfare + ' ' + result[0].thoroughfare + ' ' + result[0].postalCode + ' ' + result[0].locality + ' ' + result[0].countryName;
-      })
-      .catch((error: any) => console.log(error));
+    if (geopoint) {
+      this.nativeGeocoder.reverseGeocode(geopoint.latitude, geopoint.longitude, OPTIONS)
+        .then((result: NativeGeocoderReverseResult[]) => {
+          console.log(JSON.stringify(result[0]));
+          this._addressValue.formattedAddress = result[0].subThoroughfare + ' ' + result[0].thoroughfare + ' ' + result[0].postalCode + ' ' + result[0].locality + ' ' + result[0].countryName;
+        })
+        .catch((error: any) => console.log(error));
+    } else {
+      this._addressValue = {
+        latitude: 0,
+        longitude: 0,
+        formattedAddress: '',
+        googlePlaceId: '',
+        addressDetails: {
+          streetNumber: '',
+          route: '',
+          postalCode: '',
+          city: '',
+          country: ''
+        }
+      }
+    }
   }
 
   /**
