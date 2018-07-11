@@ -12,5 +12,9 @@
     },
     "COMPONENTS": {
         "ADDRESS": "Address"
+    },
+    "POPOVER": {
+        "SORT_BY_NAME": "Trier par nom",
+        "SORT_BY_DISTANCE": "Trier par distance"
     }
 }

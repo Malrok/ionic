@@ -12,8 +12,8 @@ export class FirestoreProvider {
 
   constructor(private db: AngularFirestore) { }
 
-  getAllUsers(): Observable<User[]> {
-    return this.db.collection<User>('users').snapshotChanges().map(snapshots =>
+  getAllUsers(sort: string): Observable<User[]> {
+    return this.db.collection<User>('users', ref => ref.orderBy(sort)).snapshotChanges().map(snapshots =>
       snapshots.map(doc => {
         return UserFactory.fromDocument(doc.payload.doc);
       })

@@ -20,6 +20,7 @@ import { PopoverPageModule } from '../pages/popover/popover.module';
 import { FirestoreProvider } from '../providers/firestore/firestore';
 import { StorageProvider } from '../providers/storage/storage';
 import { MyApp } from './app.component';
+import { SortProvider } from '../providers/sort/sort';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,7 +63,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ImagePicker,
     VirtualScrollModule,
     StorageProvider,
-    NativeGeocoder
+    NativeGeocoder,
+    SortProvider,
+    SortProvider
   ]
 })
 export class AppModule { }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { User } from '../../models/user';
 import { FirestoreProvider } from '../../providers/firestore/firestore';
+import { SortProvider } from '../../providers/sort/sort';
 import { PopoverPage } from '../popover/popover';
 
 @IonicPage({
@@ -19,9 +21,12 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     private firestore: FirestoreProvider,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private sortProvider: SortProvider
   ) {
-    this.users = this.firestore.getAllUsers();
+    this.users = this.sortProvider.getSortObservable().pipe(
+      mergeMap((sort: string) => this.firestore.getAllUsers(sort))
+    );
   }
 
   presentPopover(ev) {
