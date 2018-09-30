@@ -22,7 +22,7 @@
         "@angular/platform-browser": "5.2.11",
         "@angular/platform-browser-dynamic": "5.2.11",
         "@ionic-native/core": "4.7.0",
-        "@ionic-native/firebase": "^4.7.0",
+        "@ionic-native/firebase": "^4.15.0",
         "@ionic-native/image-picker": "^4.8.0",
         "@ionic-native/native-geocoder": "^4.9.0",
         "@ionic-native/splash-screen": "4.7.0",
@@ -32,9 +32,9 @@
         "@ngx-translate/http-loader": "^3.0.1",
         "angular2-virtual-scroll": "^0.3.2",
         "angularfire2": "^5.0.0-rc.10",
-        "cordova-android": "^7.0.0",
+        "cordova-android": "7.1.1",
         "cordova-plugin-device": "^2.0.2",
-        "cordova-plugin-firebase": "^1.0.5",
+        "cordova-plugin-firebase": "2.0.2",
         "cordova-plugin-ionic-keyboard": "^2.0.5",
         "cordova-plugin-ionic-webview": "^1.1.19",
         "cordova-plugin-nativegeocoder": "^3.1.1",
@@ -56,7 +56,6 @@
     "description": "An Ionic project",
     "cordova": {
         "plugins": {
-            "cordova-plugin-firebase": {},
             "cordova-plugin-device": {},
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-ionic-webview": {},
@@ -65,7 +64,8 @@
             "cordova-plugin-telerik-imagepicker": {
                 "PHOTO_LIBRARY_USAGE_DESCRIPTION": "Used to pick profile image"
             },
-            "cordova-plugin-nativegeocoder": {}
+            "cordova-plugin-nativegeocoder": {},
+            "cordova-plugin-firebase": {}
         },
         "platforms": [
             "android"

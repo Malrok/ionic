@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { IonicPage, NavController, PopoverController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { PopoverPage } from '../popover/popover';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage implements AfterViewChecked {
 
   users: Observable<User[]>;
 
@@ -27,6 +27,10 @@ export class HomePage {
     this.users = this.sortProvider.getSortObservable().pipe(
       mergeMap((sort: string) => this.firestore.getAllUsers(sort))
     );
+  }
+
+  ngAfterViewChecked() {
+    console.log('DEBUG -- HomePage.ngAfterViewChecked -- ' + new Date().getTime());
   }
 
   presentPopover(ev) {

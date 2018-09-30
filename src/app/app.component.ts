@@ -18,6 +18,8 @@ export class MyApp {
     translate: TranslateService
   ) {
     platform.ready().then(() => {
+      console.log('DEBUG -- platform.ready triggered -- ' + new Date().getTime());
+
       // this language will be used as a fallback when a translation isn't found in the current language
       translate.setDefaultLang('fr');
 
